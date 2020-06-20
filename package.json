@@ -4,13 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --watch * --exec serve .",
+    "build": "browserify js/simulation.js -o dist/bundle.js",
+    "dev": "nodemon --watch js/* --exec npm start",
+    "start": "npm run build && serve .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "nodemon": "^2.0.4",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "three": "^0.117.1",
+    "tumult": "^3.0.14"
   }
 }
