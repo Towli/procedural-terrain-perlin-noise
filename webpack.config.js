@@ -1,5 +1,4 @@
 const path = require("path");
-console.log(path.resolve(__dirname, "dist"));
 
 module.exports = {
   entry: ["./js/perlin.js", "./js/simulation.js"],
@@ -8,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist/"),
   },
   devServer: {
-    publicPath: "/dist/", //<- this defines URL component #2 above
+    publicPath: "/dist/",
   },
   module: {
     rules: [

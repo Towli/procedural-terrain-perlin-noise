@@ -15,6 +15,7 @@ let camera, scene, renderer, geometry, terrain, perlin;
 
 const rows = 75;
 const cols = 75;
+
 let flying = 0;
 
 init();
@@ -56,7 +57,7 @@ function render() {
   requestAnimationFrame(render);
   applyNoise();
 
-  flying -= 0.04;
+  flying -= 0.05;
 
   terrain.rotation.x = Math.PI / 3;
 
