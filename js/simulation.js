@@ -1,22 +1,29 @@
 "use strict";
 
-const THREE = require("three");
+import {
+  Scene,
+  PerspectiveCamera,
+  PlaneGeometry,
+  Mesh,
+  MeshBasicMaterial,
+  WebGLRenderer,
+} from "three";
 
 const Perlin = require("./perlin.js").Perlin;
 
-const camera, scene, renderer, geometry, terrain, perlin;
+let camera, scene, renderer, geometry, terrain, perlin;
 
 const rows = 75;
 const cols = 75;
-const flying = 0;
+let flying = 0;
 
 init();
 
 function init() {
   perlin = new Perlin();
-  scene = new THREE.Scene();
+  scene = new Scene();
 
-  camera = new THREE.PerspectiveCamera(
+  camera = new PerspectiveCamera(
     50,
     window.innerWidth / window.innerHeight,
     0.1,
@@ -25,20 +32,20 @@ function init() {
   camera.position.set(0, 1, -15);
   camera.lookAt(scene.position);
 
-  geometry = new THREE.PlaneGeometry(40, 40, rows - 1, cols - 1);
-
+  geometry = new PlaneGeometry(40, 40, rows - 1, cols - 1);
+ 
   geometry.dynamic = true;
 
-  terrain = new THREE.Mesh(
+  terrain = new Mesh(
     geometry,
-    new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true })
+    new MeshBasicMaterial({ color: 0xffffff, wireframe: true })
   );
 
   applyNoise();
 
   scene.add(terrain);
 
-  renderer = new THREE.WebGLRenderer();
+  renderer = new WebGLRenderer();
   renderer.setSize(window.innerWidth, window.innerHeight);
   document.body.appendChild(renderer.domElement);
 
@@ -49,7 +56,7 @@ function render() {
   requestAnimationFrame(render);
   applyNoise();
 
-  flying -= 0.05;
+  flying -= 0.04;
 
   terrain.rotation.x = Math.PI / 3;
 
@@ -63,8 +70,8 @@ function mapRange(value, inMin, inMax, outMin, outMax) {
 function applyNoise() {
   terrain.geometry.verticesNeedUpdate = true;
 
-  const yOffset = flying;
-  const xOffset = 0;
+  let yOffset = flying;
+  let xOffset = 0;
 
   for (let y = 0; y < rows * cols; y += rows) {
     yOffset += 0.1;
